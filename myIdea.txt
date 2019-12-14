@@ -1,0 +1,14 @@
+WikiSearch
+Język: Python
+Cel: Wyszukanie definicji do pojęć podanych w pliku tekstowym, wpisanie ich do pliku oraz wpisanie źródła.
+Docelowy system operacyjny: Linux
+
+Wymagania: plik tekstowy z wpisanymi hasłami, każde hasło w osobnej linii
+
+Sposób działania:
+1. Uzytkownik uruchamia skrypt w terminalu, podając ścieżkę do pliku txt jako argument.
+2. Skrypt zbiera wszystkie hasła i wyszukuje o nich informacje w angielskiej i polskiej wikipedii (nie tłumaczy polskich haseł na angielskie):
+   - jeśli znajdzie tylko jeden rekord odpowiadający danemu hasłu, działa tak jak opisane w celu,
+   - jeśli znajdzie wiele rekordów odpowiadającyh hasłu, kieruje zapytanie do użytkownika o wybór jednego z dostępnych rekordów, który następnie zostanie umieszczony w pliku txt
+   - jeśli nie znajdzie, rekordów zostawia hasło bez zmian, przechodzi do następnego.
+3. Skrypt zmienia scieżkę terminala na folder nadrzędny pliku txt oraz otwiera plik w edytorze ( w linuxie może do tego użyć nano).
