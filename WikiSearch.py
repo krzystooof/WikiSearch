@@ -18,12 +18,34 @@ def saveToFile(filePath,lines):
     with open(filePath,"r+") as file:
         file.writelines(lines)
 def getFilePath(args):
+    args2 =[]
     for arg in args:
-        arg = re.findall("\.*.txt",arg)
-    if len(args)>1 or len(args)==0:
+        arg = re.findall(".+.txt",arg)
+        if len(arg) is not 0:
+            args2.append(arg)
+    if len(args2)>1 or len(args2)==0:
         return None
     else:
-        return args[0]
+        return args2[0][0]
+def getCountryCodes(args):
+    args2 =[]
+    for arg in args:
+        args2.append(re.findall("\.[a-zA-Z]{2,3}",arg))
+    args3 = [x for x in args2 if x] #get rid of empty elements
+    args2.clear()
+    args2 = [word for arg in args3 for word in arg if word != ".txt"]
+    if len(args2)==0:
+        return None
+    return args2
+def getOptions(args):
+    args2 =[]
+    for arg in args:
+        args2.append(re.findall("-.{1,}",arg))
+    args3 = [letter for arg in args2 for word in arg for letter in word if letter != '-']
+    if len(args3)==0:
+        return None
+    else:
+        return args3
 def specifyOption(item,options):
     item.replace("\n","") #get rid of newlines
     print("More than one match found for "+item)
@@ -69,31 +91,33 @@ def getFromWikipedia(countryCode ,item):
                     part = li.find('a', href=True)
                     titles.append(part['title'])
                     descriptions.append(li.text)
-                selected = titles[specifyOption(item,descriptions)]
-                return getFromWikipedia(countryCode, selected)            
+                selectedItem = titles[specifyOption(item,descriptions)]
+                return getFromWikipedia(countryCode, selectedItem)            
     except ConnectionError:
         print("Connection error at " + item)
         description.append("")
         site = ""
-    return description, site
+    return item, description, site
 def refactorString(item):
     item.replace("\n","") #get rid of newlines
     item.replace(" ","") #get rid of spaces
     item = re.sub("\ +","_",item) #replace spaces with '_' (for www address)
     return item
 def start(args):
-    if len(args)==0:
+    filePath = getFilePath(args)
+    if filePath is None:
         print("Please specify txt file path. ex: WikiSearch myTextFile.txt")
     else:
-        filePath = getFilePath(args)
+        options = getOptions(args)
+        countryCodes = getCountryCodes(args)
         toWrite=[]
-        #TODO get args and run according to arguments
+        #TODO options and countrycodes
         for line in readFile(filePath):
             if line is not "" or " ":
-                description , itemUrl = getFromWikipedia("en", refactorString(line)) #en for english, pl for polish etc
+                item, description , itemUrl = getFromWikipedia("en", refactorString(line)) #en for english, pl for polish etc
                 toWrite.append(line + description[0]+itemUrl) #description [0] - only first paragraph
         saveToFile(filePath,toWrite)
-        print("Results saved to "+filePath if notFound is 0 else "Results saved to "+filePath+". Not found results for "+str(notFound)+" items")
+        print("Results saved to "+filePath if notFound is 0 else "Results saved to "+filePath+". Not found "+str(notFound)+" items")
 def checkInternetConnection(host='https://en.wikipedia.org/'):
     try:
         requests.get(host) 
