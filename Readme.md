@@ -1,7 +1,7 @@
 # WikiSearch
 A Python script that gets entries from txt file and search for it in Wikipedia
 
-##Get it work!
+### Get it work!
 
 
 #### 0. Install Python, requests and BeautifulSoup 
