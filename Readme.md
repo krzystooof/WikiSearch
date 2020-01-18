@@ -23,13 +23,13 @@ Open terminal and type
     python3 WikiSearch.py file.txt .pl .en -v -e
 	python3 home/WikiSearch.py folder/file.txt
 	
-##### Txt file
+#### Txt file
 This file should contain requested entries, each on a different line. Like this:
 
      Robert Lewandowski
 	 August
 	 wiki
-Output will be written in this file:
+Output will be written in same file:
 
     Robert Lewandowski
 	Robert Lewandowski (Polish pronunciation: [ˈrɔbɛrt lɛvanˈdɔfskʲi] (listen); born 21 August 1988) is a Polish professional footballer who plays as a striker for Bayern Munich and is the captain o 	the Poland national team. He is renowned for his positioning, technique and finishing, and is 	widely regarded as one of the best strikers of his generation.
@@ -41,10 +41,10 @@ Output will be written in this file:
 	A wiki (/ˈwɪki/ (listen) WIK-ee) is a knowledge base website on which users collaboratively modify and structure content directly from the web browser. In a typical wiki, text is written using a simplified markup language and often edited with the help of a rich-text editor.
 	https://en.wikipedia.org/w/index.php?search=wiki
 	
-##### Country codes
+#### Country codes
 Those are Wikipedia's codes for county site like `pl` `en` or `pt`
 If you give more than one country code the script will look for results for first code, if it won't find any it will look for second code etc.
-##### Options
+#### Options
 - `v` for output in terminal for every entry
 - `e` for extended description in output txt file
 
