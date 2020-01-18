@@ -46,5 +46,6 @@ If you give more than one country code the script will look for results for firs
 ##### Options
 - `v` for output in terminal for every entry
 - `e` for extended description in output txt file
+- `o` to open txt file in nano after finishing
 
 You can put more than one option in a `-`. `-v -e` and `-ve` are equal 

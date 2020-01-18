@@ -2,6 +2,7 @@ import sys #argvs
 from bs4 import BeautifulSoup #parsing html
 import requests #get site html
 import re #regex
+import subprocess
 
 def getArgs():
     args = []
@@ -105,18 +106,12 @@ def processCountryCodes(countryCodes,codeIndex,item):
         return processCountryCodes(countryCodes,codeIndex+1,item)
     return description, itemUrl
 def start(args):
-    showSteps = False
-    extended = False
     notFound = 0
     filePath = getFilePath(args)
     if filePath is None:
         print("Please specify txt file path. ex: WikiSearch myTextFile.txt")
     else:
         options = getOptions(args)
-        if 'v' in options:
-            showSteps = True
-        if 'e' in options:
-            extended = True
         countryCodes = getCountryCodes(args)
         toWrite=[]
         for line in readFile(filePath):
@@ -124,14 +119,16 @@ def start(args):
                 description , itemUrl = processCountryCodes(countryCodes, 0,refactorString(line))
                 if itemUrl == "":
                     notFound+=1
-                if showSteps == True:
+                if 'v' in options:
                     print(line +": not found" if itemUrl is "" else line +": "+ description[0])
-                if extended == True:
+                if 'e' in options:
                     string = ''.join(description)
                     toWrite.append(line + string+itemUrl)
                 else:
                     toWrite.append(line + description[0]+itemUrl)
         saveToFile(filePath,toWrite)
         print("Results saved to "+filePath if notFound is 0 else "Results saved to "+filePath+". Not found "+str(notFound)+" items")
+        if "o" in options:
+            subprocess.call(["nano",filePath])
 if __name__ == "__main__":
     start(getArgs())
