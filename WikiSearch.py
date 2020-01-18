@@ -2,9 +2,6 @@ import sys #argvs
 from bs4 import BeautifulSoup #parsing html
 import requests #get site html
 import re #regex
-#import os #current working directory
-
-notFound = 0
 
 def getArgs():
     args = []
@@ -33,7 +30,7 @@ def getCountryCodes(args):
         args2.append(re.findall("\.[a-zA-Z]{2,3}",arg))
     args3 = [x for x in args2 if x] #get rid of empty elements
     args2.clear()
-    args2 = [word for arg in args3 for word in arg if word != ".txt"]
+    args2 = [word[1:] for arg in args3 for word in arg if word != ".txt"]
     if len(args2)==0:
         return None
     return args2
@@ -69,9 +66,6 @@ def getFromWikipedia(countryCode ,item):
         if soup.find('div',class_="mw-search-form-wrapper"):
             description.append("")
             site = ""
-            print("No results for "+item)
-            global notFound
-            notFound+=1
         else:
             article = soup.find('div', class_="mw-parser-output")
             pList = article.find_all('p',recursive=False)
@@ -97,33 +91,50 @@ def getFromWikipedia(countryCode ,item):
         print("Connection error at " + item)
         description.append("")
         site = ""
-    return item, description, site
+    return description, site
 def refactorString(item):
     item.replace("\n","") #get rid of newlines
     item.replace(" ","") #get rid of spaces
     item = re.sub("\ +","_",item) #replace spaces with '_' (for www address)
     return item
+def processCountryCodes(countryCodes,codeIndex,item):
+    if countryCodes is None:
+            countryCodes = []
+            countryCodes.append("en")
+    if len(countryCodes)-1 < codeIndex:
+        return "", ""
+    description , itemUrl = getFromWikipedia(countryCodes[codeIndex], item)
+    if itemUrl == "":
+        return processCountryCodes(countryCodes,codeIndex+1,item)
+    return description, itemUrl
 def start(args):
+    showSteps = False
+    extended = False
+    notFound = 0
     filePath = getFilePath(args)
     if filePath is None:
         print("Please specify txt file path. ex: WikiSearch myTextFile.txt")
     else:
         options = getOptions(args)
+        if 'v' in options:
+            showSteps = True
+        if 'e' in options:
+            extended = True
         countryCodes = getCountryCodes(args)
         toWrite=[]
-        #TODO options and countrycodes
         for line in readFile(filePath):
             if line is not "" or " ":
-                item, description , itemUrl = getFromWikipedia("en", refactorString(line)) #en for english, pl for polish etc
-                toWrite.append(line + description[0]+itemUrl) #description [0] - only first paragraph
+                description , itemUrl = processCountryCodes(countryCodes, 0,refactorString(line))
+                if itemUrl == "":
+                    notFound+=1
+                if showSteps == True:
+                    print(line +": not found" if itemUrl is "" else line +": "+ description[0])
+                if extended == True:
+                    string = ''.join(description)
+                    toWrite.append(line + string+itemUrl)
+                else:
+                    toWrite.append(line + description[0]+itemUrl)
         saveToFile(filePath,toWrite)
         print("Results saved to "+filePath if notFound is 0 else "Results saved to "+filePath+". Not found "+str(notFound)+" items")
-def checkInternetConnection(host='https://en.wikipedia.org/'):
-    try:
-        requests.get(host) 
-        return True
-    except:
-        return False
-
 if __name__ == "__main__":
     start(getArgs())
