@@ -39,10 +39,7 @@ def getOptions(args):
     for arg in args:
         args2.append(re.findall("-.{1,}",arg))
     args3 = [letter for arg in args2 for word in arg for letter in word if letter != '-']
-    if len(args3)==0:
-        return None
-    else:
-        return args3
+    return args3
 def specifyOption(item,options):
     item.replace("\n","") #get rid of newlines
     print("More than one match found for "+item)
