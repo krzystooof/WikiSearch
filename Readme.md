@@ -17,7 +17,7 @@ Open terminal and type
 
     python3 <WikiSearch.py location> <your txt file location> <.countryCodes> <options>
 	
-> Remember that python3 and WikiSearch.py location must be on first and second position
+> Remember that python3 and WikiSearch.py_location must be on first and second position
 
 ##### Examples
     python3 WikiSearch.py file.txt .pl .en -v -e
