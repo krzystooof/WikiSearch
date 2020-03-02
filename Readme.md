@@ -32,10 +32,10 @@ This file should contain requested entries, each on a different line. Like this:
 Output will be written in same file:
 
     Robert Lewandowski
-	Robert Lewandowski (Polish pronunciation: [ˈrɔbɛrt lɛvanˈdɔfskʲi] (listen); born 21 August 1988) is a Polish professional footballer who plays as a striker for Bayern Munich and is the captain o 	the Poland national team. He is renowned for his positioning, technique and finishing, and is 	widely regarded as one of the best strikers of his generation.
+	Robert Lewandowski (Polish pronunciation: [ˈrɔbɛrt lɛvanˈdɔfskʲi] (listen); born 21 August 1988) is a Polish professional footballer who plays as a striker for Bayern Munich and is the captain of the Poland national team. He is renowned for his positioning, technique and finishing, and is widely regarded as one of the best strikers of his generation.
 	https://en.wikipedia.org/w/index.php?search=Robert_Lewandowski
 	August
-	August is the eighth month of the year in the Julian and Gregorian calendars, and the fifth of 		seven months to have a length of 31 days. It was originally named Sextilis in Latin because it 		was the sixth month in the original ten-month Roman calendar under Romulus in 753 BC, with 	March being the first month of the year. About 700 BC, it became the eighth month when 				January and February were added to the year before March by King Numa Pompilius, who also gave it 29 days. Julius Caesar added two days when he created the Julian calendar in 46 BC (708 AUC), giving it its modern length of 31 days. In 8 BC, it was renamed in honor of Augustus. According to a Senatus consultum quoted by Macrobius, he chose this month because it was the time of several of his great triumphs, including the conquest of Egypt.
+	August is the eighth month of the year in the Julian and Gregorian calendars, and the fifth of seven months to have a length of 31 days. It was originally named Sextilis in Latin because it was the sixth month in the original ten-month Roman calendar under Romulus in 753 BC, with 	March being the first month of the year. About 700 BC, it became the eighth month when 				January and February were added to the year before March by King Numa Pompilius, who also gave it 29 days. Julius Caesar added two days when he created the Julian calendar in 46 BC (708 AUC), giving it its modern length of 31 days. In 8 BC, it was renamed in honor of Augustus. According to a Senatus consultum quoted by Macrobius, he chose this month because it was the time of several of his great triumphs, including the conquest of Egypt.
 	https://en.wikipedia.org/w/index.php?search=August
 	wiki
 	A wiki (/ˈwɪki/ (listen) WIK-ee) is a knowledge base website on which users collaboratively modify and structure content directly from the web browser. In a typical wiki, text is written using a simplified markup language and often edited with the help of a rich-text editor.
@@ -50,3 +50,6 @@ If you give more than one country code the script will look for results for firs
 - `o` to open txt file in nano after finishing
 
 You can put more than one option in a `-`. `-v -e` and `-ve` are equal 
+
+//biale znaki, wersja pythona, link do kodow wyniki, myslnik do wywołania skryptu 
+//atlasroslin
