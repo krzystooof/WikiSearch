@@ -1,3 +1,4 @@
+#python 3.6
 import sys  # argvs
 from bs4 import BeautifulSoup  # parsing html
 import requests  # get site html
